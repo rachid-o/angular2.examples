@@ -7,6 +7,7 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
 
 @Component({
     selector: 'my-app',
+    styleUrls: ['app/app.component.css'],
     template: `
     <h1>{{title}}</h1>
     <nav>
@@ -35,7 +36,7 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
     component: HeroesComponent
 },
 {
-  path: '/detail/:id',
+  path: '/heroes/:id',
   name: 'HeroDetail',
   component: HeroDetailComponent
 }
