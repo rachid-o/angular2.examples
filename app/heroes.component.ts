@@ -36,11 +36,9 @@ export class HeroesComponent implements OnInit {
     slowCall() {
         this.slowService.mediumCall().then(result => { 
             console.log(result)
-            console.log(' ===>>>  Het duurde ff, maar dat was het wachten dubbeldwars waard.');
+            console.log('Done ===>>>  Het duurde ff, maar dat was het wachten dubbeldwars waard.');
         })
         .catch(error => console.error('ERROR during slowCall: ', error));
-        console.log('end slowCall');
-        
     }
 
     gotoDetail(hero: Hero) {
