@@ -1,6 +1,7 @@
 import { Component }       from '@angular/core';
 import { DashboardComponent } from './dashboard.component';
 import { HeroService }     from './hero.service';
+import { SlowService }     from './slow.service';
 import { HeroDetailComponent } from './hero-detail.component';
 import { HeroesComponent } from './heroes.component';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
@@ -19,7 +20,8 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
     directives: [ROUTER_DIRECTIVES],
     providers: [
         ROUTER_PROVIDERS,
-        HeroService
+        HeroService,
+        SlowService
     ]
 })
 

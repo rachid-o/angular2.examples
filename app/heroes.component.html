@@ -1,5 +1,6 @@
 <h2>Heroes</h2>
 <button (click)="addHero()">Add New Hero</button>
+<button (click)="slowCall()">slow Call</button>
 <div *ngIf="addingHero">
   <my-hero-detail (close)="close($event)"></my-hero-detail>
 </div>
