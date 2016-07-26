@@ -5,7 +5,7 @@ import { Hero } from './hero';
 import { HeroDetailComponent } from './hero-detail.component';
 import { HeroService } from './hero.service';
 import { SlowService } from './slow.service';
-
+import 'rxjs/add/operator/toPromise';
 
 @Component({
     selector: 'my-heroes',
@@ -35,6 +35,14 @@ export class HeroesComponent implements OnInit {
 
     slowCall() {
         this.slowService.mediumCall().then(result => { 
+            console.log(result)
+            console.log('Done ===>>>  Het duurde ff, maar dat was het wachten dubbeldwars waard.');
+        })
+        .catch(error => console.error('ERROR during slowCall: ', error));
+    }
+
+    observableCall() {
+        this.slowService.observableCall().toPromise().then(result => { 
             console.log(result)
             console.log('Done ===>>>  Het duurde ff, maar dat was het wachten dubbeldwars waard.');
         })

@@ -1,4 +1,10 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/subject';
+import 'rxjs/add/operator/toPromise';
+// import 'rxjs/add/operator/fromPromise';
+// import 'rxjs/add/operator/from';
+// import 'rxjs/observable/fromPromise';
 
 @Injectable()
 export class SlowService {
@@ -26,4 +32,41 @@ export class SlowService {
     return new Promise<string>(resolve => setTimeout(() => resolve('step 3'), 1000) );
   }
   
+
+  observableCall(): Observable<any> {
+    // return Observable.fromPromise(this.mediumCall());
+    // return null;
+    return new Observable(observer => {
+      observer.next('42');
+      setTimeout(() => {
+          observer.complete();
+      }, 500);
+    });
+
+    // return this.internalCall1().subscribe(result => {
+    //   console.log(result);
+    //   return this.internalCall2();
+    // })
+  }
+
+
+  // private internalCall1(): Observable<any> {
+  //   return new Observable(observer => {
+  //     observer.next('internal call 1');
+  //     setTimeout(() => {
+  //       observer.complete();
+  //     }, 500);
+  //   });
+  // }
+
+
+  // private internalCall2(): Observable<any> {
+  //   return new Observable(observer => {
+  //     observer.next('internal call 2');
+  //     setTimeout(() => {
+  //       observer.complete();
+  //     }, 500);
+  //   });
+  // }
+
 }

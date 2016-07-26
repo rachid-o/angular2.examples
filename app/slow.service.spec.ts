@@ -18,22 +18,22 @@ import { PromiseWrapper } from '@angular/core/src/facade/promise';
 describe('Tests on SlowService', () => {
     let service:SlowService; // = new SlowService();
 
-    beforeEach(() => {
-      // init before each test?
-      service = new SlowService();
-    });
+    // beforeEach(() => {
+    //   // init before each test?
+    //   service = new SlowService();
+    // });
  
-    it('This test should terminate after Promise is resolved', function(done) {
-      console.log('BEGIN body of test for service;', service);
-      service.mediumCall().then(result => { 
-        console.log('result:', result);
-        expect(result).toContain('step 3');
-        console.log('Test is finished.');
-        done();
-      });
-      console.log('END body of test');
+    // it('This test should terminate after Promise is resolved', function(done) {
+    //   console.log('BEGIN body of test for service;', service);
+    //   service.mediumCall().then(result => { 
+    //     console.log('result:', result);
+    //     expect(result).toContain('step 3');
+    //     console.log('Test is finished.');
+    //     done();
+    //   });
+    //   console.log('END body of test');
 
-    }, 10000);  //       jasmine.DEFAULT_TIMEOUT_INTERVAL should be 10 secs here
+    // }, 10000);  //       jasmine.DEFAULT_TIMEOUT_INTERVAL should be 10 secs here
 
 });
 
