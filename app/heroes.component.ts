@@ -35,6 +35,7 @@ export class HeroesComponent implements OnInit {
     }
 
     slowCall() {
+        console.log('clicked');
         this.slowService.mediumCall().then(result => { 
             console.log(result)
             console.log('Done ===>>>  Het duurde ff, maar dat was het wachten dubbeldwars waard.');
@@ -43,12 +44,15 @@ export class HeroesComponent implements OnInit {
     }
 
     observableCall() {
-        this.slowService.observableCall()
-                    // .map((response:any) => response)
-                    .subscribe((result:any) => { 
-            console.log(result)
-        }, (error:any) => console.log('Error occured:', error), 
-        () => console.log('Done ===>>>  Het duurde ff, maar dat was het wachten dubbeldwars waard.') );
+        console.log('clicked');
+        this.slowService.observableCall().map(result => {
+            // console.debug('map() result:', result);
+            return result
+        })
+        .subscribe(
+            (result:any) => console.log('subscribe.next:', result), 
+            (error:any) => console.log('Error occured:', error), 
+            () => console.log('Done ===>>>') );
     }
 
     gotoDetail(hero: Hero) {

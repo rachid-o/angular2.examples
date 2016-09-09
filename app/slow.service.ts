@@ -31,9 +31,71 @@ export class SlowService {
   step3(): Promise<string> {
     return new Promise<string>(resolve => setTimeout(() => resolve('step 3'), 1000) );
   }
+
+
+  observableCall1(): Observable<string> {
+    return Observable.create((observer:any) => {
+      setTimeout(() => {
+        observer.next('step 1');
+        observer.complete();
+      }, 500);
+    });
+  }
+
+  observableCall2(): Observable<string> {
+    return Observable.create((observer:any) => {
+        setTimeout(() => {
+            observer.next('step 2');
+            observer.complete();
+        }, 500);
+    });
+  }
+    observableCall3(): Observable<string> {
+    return Observable.create((observer:any) => {
+        setTimeout(() => {
+            observer.next('step 3');
+            observer.complete();
+        }, 500);
+    });
+  }
   
 
   observableCall(): Observable<any> {
+    // TODO: not working as Promise 
+    return this.observableCall1().map(result => {
+      console.debug('result of call 1:', result);
+      // return result
+      return this.observableCall2();
+      // .map(result => {
+      //     console.debug('result of call 2:', result);
+      //     return result
+      //   });
+    });
+
+
+    // .map(result => {
+    //   console.debug('result of call 2:', result);
+    //   return this.observableCall3();
+    //   // return result
+    // })
+
+
+    // return this.observableCall1().subscribe(
+    //   (result:any) => console.log(result),
+    //   (error:any) => console.log('Error occured:', error),
+    //   () => { 
+    //     console.log('Done, return new Observable.'
+    //     return new Observable( (observer:any) => {
+    //         // observer.next('completed');
+    //         observer.complete();
+    //     });
+
+    //   });
+
+  }
+
+
+  observableCallOne(): Observable<any> {
     // return Observable.fromPromise(this.mediumCall());
     // return null;
     return new Observable( (observer:any) => {
@@ -47,36 +109,7 @@ export class SlowService {
               observer.complete();
           }, 1500);
     });
-
-    // let subject = new Subject<string>();
-    // subject.next('1');
-    // subject.complete();
-    // return subject.asObservable();
-
-    // return this.internalCall1().subscribe(result => {
-    //   console.log(result);
-    //   return this.internalCall2();
-    // })
   }
 
-
-  // private internalCall1(): Observable<any> {
-  //   return new Observable(observer => {
-  //     observer.next('internal call 1');
-  //     setTimeout(() => {
-  //       observer.complete();
-  //     }, 500);
-  //   });
-  // }
-
-
-  // private internalCall2(): Observable<any> {
-  //   return new Observable(observer => {
-  //     observer.next('internal call 2');
-  //     setTimeout(() => {
-  //       observer.complete();
-  //     }, 500);
-  //   });
-  // }
 
 }
