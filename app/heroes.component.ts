@@ -6,6 +6,7 @@ import { HeroDetailComponent } from './hero-detail.component';
 import { HeroService } from './hero.service';
 import { SlowService } from './slow.service';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
 
 @Component({
     selector: 'my-heroes',
@@ -42,11 +43,12 @@ export class HeroesComponent implements OnInit {
     }
 
     observableCall() {
-        this.slowService.observableCall().toPromise().then(result => { 
+        this.slowService.observableCall()
+                    // .map((response:any) => response)
+                    .subscribe((result:any) => { 
             console.log(result)
-            console.log('Done ===>>>  Het duurde ff, maar dat was het wachten dubbeldwars waard.');
-        })
-        .catch(error => console.error('ERROR during slowCall: ', error));
+        }, (error:any) => console.log('Error occured:', error), 
+        () => console.log('Done ===>>>  Het duurde ff, maar dat was het wachten dubbeldwars waard.') );
     }
 
     gotoDetail(hero: Hero) {

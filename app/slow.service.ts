@@ -36,12 +36,22 @@ export class SlowService {
   observableCall(): Observable<any> {
     // return Observable.fromPromise(this.mediumCall());
     // return null;
-    return new Observable(observer => {
-      observer.next('42');
-      setTimeout(() => {
-          observer.complete();
-      }, 500);
+    return new Observable( (observer:any) => {
+          setTimeout(() => {
+              observer.next(21);
+          }, 500);
+          setTimeout(() => {
+              observer.next(42);
+          }, 1000);
+          setTimeout(() => {
+              observer.complete();
+          }, 1500);
     });
+
+    // let subject = new Subject<string>();
+    // subject.next('1');
+    // subject.complete();
+    // return subject.asObservable();
 
     // return this.internalCall1().subscribe(result => {
     //   console.log(result);
