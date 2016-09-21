@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/subject';
 import 'rxjs/add/operator/toPromise';
+// import { Observer } from 'rxjs/Observer';
 // import 'rxjs/add/operator/fromPromise';
 // import 'rxjs/add/operator/from';
 // import 'rxjs/observable/fromPromise';
@@ -38,7 +39,7 @@ export class SlowService {
       setTimeout(() => {
         observer.next('step 1');
         observer.complete();
-      }, 500);
+      }, 1000);
     });
   }
 
@@ -47,7 +48,7 @@ export class SlowService {
         setTimeout(() => {
             observer.next('step 2');
             observer.complete();
-        }, 500);
+        }, 1000);
     });
   }
     observableCall3(): Observable<string> {
@@ -55,61 +56,28 @@ export class SlowService {
         setTimeout(() => {
             observer.next('step 3');
             observer.complete();
-        }, 500);
+        }, 1000);
     });
   }
   
+  // http://blog.angular-university.io/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/
 
   observableCall(): Observable<any> {
-    // TODO: not working as Promise 
-    return this.observableCall1().map(result => {
-      console.debug('result of call 1:', result);
-      // return result
-      return this.observableCall2();
-      // .map(result => {
-      //     console.debug('result of call 2:', result);
-      //     return result
-      //   });
+
+    let subject = new Subject<string>();
+
+    this.observableCall1().subscribe((result1) => {
+      console.log(result1);
+      this.observableCall2().subscribe((result2) => {
+        console.log(result2);
+        this.observableCall3().subscribe((result3) => {
+          console.log(result3);
+          subject.next('final result: ' + result3);
+        });
+      });
     });
 
-
-    // .map(result => {
-    //   console.debug('result of call 2:', result);
-    //   return this.observableCall3();
-    //   // return result
-    // })
-
-
-    // return this.observableCall1().subscribe(
-    //   (result:any) => console.log(result),
-    //   (error:any) => console.log('Error occured:', error),
-    //   () => { 
-    //     console.log('Done, return new Observable.'
-    //     return new Observable( (observer:any) => {
-    //         // observer.next('completed');
-    //         observer.complete();
-    //     });
-
-    //   });
-
+    return subject.asObservable();
   }
-
-
-  observableCallOne(): Observable<any> {
-    // return Observable.fromPromise(this.mediumCall());
-    // return null;
-    return new Observable( (observer:any) => {
-          setTimeout(() => {
-              observer.next(21);
-          }, 500);
-          setTimeout(() => {
-              observer.next(42);
-          }, 1000);
-          setTimeout(() => {
-              observer.complete();
-          }, 1500);
-    });
-  }
-
 
 }

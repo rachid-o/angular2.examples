@@ -45,14 +45,14 @@ export class HeroesComponent implements OnInit {
 
     observableCall() {
         console.log('clicked');
-        this.slowService.observableCall().map(result => {
+        this.slowService.observableCall()/*.map(result => {
             // console.debug('map() result:', result);
             return result
-        })
+        }) */
         .subscribe(
-            (result:any) => console.log('subscribe.next:', result), 
-            (error:any) => console.log('Error occured:', error), 
-            () => console.log('Done ===>>>') );
+            (result:any) => console.log('  subscribe.next:', result), 
+            (error:any) => console.log('  Error occured:', error), 
+            () => console.log('<<<===   Done   ===>>>') );
     }
 
     gotoDetail(hero: Hero) {
