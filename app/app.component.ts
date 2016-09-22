@@ -2,9 +2,7 @@ import { Component }       from '@angular/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 
 import { DashboardComponent } from './dashboard.component';
-import { HeroService }     from './hero.service';
 import { TodoComponent } from './todo.component';
-
 import { SlowService } from './slow.service';
 import { ObservableService } from './observable.service';
 import { TodoService } from './todo.service';
@@ -23,7 +21,7 @@ import { TodoService } from './todo.service';
     directives: [ROUTER_DIRECTIVES],
     providers: [
         ROUTER_PROVIDERS,
-        HeroService, SlowService, ObservableService, TodoService
+        SlowService, ObservableService, TodoService
     ]
 })
 
