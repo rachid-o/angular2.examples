@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { Todo, TodoService } from './todo.service';
+import 'rxjs/add/operator/find';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/takeLast';
 
 @Component({
     templateUrl: 'app/todo.component.html',
@@ -10,20 +13,20 @@ import { Todo, TodoService } from './todo.service';
 export class TodoComponent implements OnInit {
 
     private todos$: Observable<Todo[]>;
-    // private singleTodo$: Observable<string>;
+    private lowerPrioItems$: Observable<Todo[]>;
 
-    constructor(private todoService: TodoService) { 
+    constructor(private todoService: TodoService) {
     }
 
     ngOnInit() {
         this.todos$ = this.todoService.todos$; // subscribe to entire collection
-        this.todoService.loadAll();
+        // this.todoService.loadAll();
 
-        // subscribe to only one single todo
-        // this.singleTodo$ = this.todoService.todos$
-        //         .map(todos => todos.find(item => item === 'single'));
-
-        // this.todoService.load('1');    // load only todo with id of '1'
+        // subscribe to the last 2 items of the list
+        this.lowerPrioItems$ = this.todoService.todos$
+            .map( (todos: Todo[]) => {
+                return todos.slice(todos.length - 2, todos.length);
+            } );
     }
 
     loadTodos() {

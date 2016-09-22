@@ -3,16 +3,24 @@
 <button (click)="loadTodos()" > load TODO list </button>
 <button (click)="addTodo()" > add item </button>
 
-<ol class="todos">
+<ul class="todos">
     <li *ngFor="let t of todos$ | async"> 
         <span class="badge">
-            {{t.name}}  &nbsp;&nbsp; - &nbsp;&nbsp;
+            {{t.id}}: {{t.name}}  &nbsp;&nbsp; - &nbsp;&nbsp;
             in sync: 
             <span [ngStyle]="{'color': t.isSync ? 'green' : 'red', 'font-weight': 'bold'}">
                 {{ t.isSync}}
             </span> 
             </span> 
     </li>
-</ol>
+</ul>
 
-Observing single item: {{ singleTodoItem }}
+<hr/>
+<h2>Last 2 items:</h2>
+<li *ngFor="let t of lowerPrioItems$ | async">
+    {{t.id}}: {{t.name}}
+    <span [ngStyle]="{'color': t.isSync ? 'green' : 'red', 'font-weight': 'bold'}">
+        {{ t.isSync}}
+    </span> 
+
+</li>

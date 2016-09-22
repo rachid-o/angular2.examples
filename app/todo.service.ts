@@ -20,6 +20,7 @@ export class TodoService {
   constructor() {
     this.dataStore = this.generateTodos();
     this.counter = this.dataStore.length;
+
     this._todos$ = <Subject<Todo[]>>new Subject();
   }
 
@@ -39,12 +40,14 @@ export class TodoService {
     let newTodo: Todo = { id: this.counter, name: newItemName, isSync: false };
     // Add it to local cache
     this.dataStore.push(newTodo);
+    this._todos$.next(this.dataStore);  // Update all Observers, uncomment to see what happens
 
     // Now add it to backend
     this.addTODObackend(newTodo).subscribe((resultItem: Todo) => {
       let updatedTodo = this.findById(resultItem.id);
       if(updatedTodo) {
         updatedTodo.isSync = true;
+        this._todos$.next(this.dataStore);
       }
     });
   }
@@ -68,11 +71,9 @@ export class TodoService {
     return Observable.create((observer: any) => {
       console.debug('Simulate adding item to backend, will finish after 2 seconds');
       setTimeout(() => {
-        // item.isSync = true;
         observer.next(item);
-        // observer.next(name + ' (saved on server)');
         observer.complete();
-      }, 2000);
+      }, 1500);
     });
   }
 
