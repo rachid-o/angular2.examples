@@ -75,6 +75,7 @@ export class SlowService {
         this.observableCall3().subscribe((result3) => {
           console.log(result3);
           subject.next('final result: ' + result3);
+          subject.complete();
         });
       });
     });
