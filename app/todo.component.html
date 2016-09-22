@@ -4,7 +4,15 @@
 <button (click)="addTodo()" > add item </button>
 
 <ol class="todos">
-    <li *ngFor="let todo of todos$ | async"> 
-        <span class="badge">{{todo}}</span> 
+    <li *ngFor="let t of todos$ | async"> 
+        <span class="badge">
+            {{t.name}}  &nbsp;&nbsp; - &nbsp;&nbsp;
+            in sync: 
+            <span [ngStyle]="{'color': t.isSync ? 'green' : 'red', 'font-weight': 'bold'}">
+                {{ t.isSync}}
+            </span> 
+            </span> 
     </li>
 </ol>
+
+Observing single item: {{ singleTodoItem }}
