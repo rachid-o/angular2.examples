@@ -1,73 +1,53 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/subject';
-import 'rxjs/add/operator/toPromise';
-// import { Observer } from 'rxjs/Observer';
-// import 'rxjs/add/operator/fromPromise';
-// import 'rxjs/add/operator/from';
-// import 'rxjs/observable/fromPromise';
 
-const SLEEPTIME = 1000;
+// http://blog.angular-university.io/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/
 
 @Injectable()
 export class TodoService {
 
-  // http://blog.angular-university.io/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/
-  // private missionAnnouncedSource = new Subject<string>();
 
   private _todos$: Subject<string[]>;
-  private dataStore: {
-    todos: string[]
-  };
+  private dataStore: string[]
+  private counter: number;
 
   constructor() {
-    this.dataStore = { todos: [] };
+    this.dataStore = ['item 1', 'single', 'item 3'];
+    this.counter = this.dataStore.length;
     this._todos$ = <Subject<string[]>>new Subject();
   }
 
 
-  get todos$() {
+  get todos$(): Observable<string[]> {
     return this._todos$.asObservable();
   }
 
-  // loadAll() {
-  //   this.http.get(`${this.baseUrl}/todos`).map(response => response.json()).subscribe(data => {
-  //     this.dataStore.todos = data;
-  //     this._todos$.next(this.dataStore.todos);
-  //   }, error => console.log('Could not load todos.'));
-  // }
-
-  public behaviorSubject(): Observable<any> {
-    // let BehaviourSubject = new BehaviorSubject(initialState);
-    let subject = new Subject<string>();
-
-    this.createObservable('step 1').subscribe((result1) => {
-      console.debug(result1);
-    //   this.observableCall2().subscribe((result2) => {
-    //     console.log(result2);
-    //     this.observableCall3().subscribe((result3) => {
-    //       console.log(result3);
-          subject.next(result1);
-          subject.complete();
-    //     });
-    //   });
-    });
-
-    return subject.asObservable();
-
+  public loadAll(): void {
+    this._todos$.next(this.dataStore);
   }
 
+  public addTodo(): void {
+    this.counter++;
+    // Do some async stuff to add the TODO to backend service. When this is finished update client with its value
+    let newItem = 'added item ' + this.counter;
+    // this.dataStore.push(newItem);
+    this.addTODObackend(newItem).subscribe( resultItem => {
+      this.dataStore.push(resultItem);
 
+    });
+    // addTODObackend
+    // this._todos$.next(this.dataStore);
+  }
 
-  private createObservable(name: string): Observable<string> {
-    return Observable.create((observer: any) => {
-      console.debug('emit "' + name + '", after ' + SLEEPTIME + ' ms');
+  private addTODObackend(name: string): Observable<string> {
+    return Observable.create((observer:any) => {
+      console.debug('simulate adding item to backend');
       setTimeout(() => {
-        observer.next(name);
+        observer.next(name + ' (saved on server)');
         observer.complete();
-      }, SLEEPTIME);
+      }, 1000);
     });
   }
-
 
 }

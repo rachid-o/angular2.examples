@@ -1,7 +1,10 @@
 <h2>TODO List</h2>
 
-<ul class="todos">
-    <li *ngFor="let todo of todos"> 
+<button (click)="loadTodos()" > load TODO list </button>
+<button (click)="addTodo()" > add item </button>
+
+<ol class="todos">
+    <li *ngFor="let todo of todos$ | async"> 
         <span class="badge">{{todo}}</span> 
     </li>
-</ul>
+</ol>
