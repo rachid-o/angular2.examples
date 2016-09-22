@@ -1,9 +1,13 @@
 import { Component }       from '@angular/core';
+import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
+
 import { DashboardComponent } from './dashboard.component';
 import { HeroService }     from './hero.service';
-import { HeroDetailComponent } from './hero-detail.component';
-import { HeroesComponent } from './heroes.component';
-import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
+import { TodoComponent } from './todo.component';
+
+import { SlowService } from './slow.service';
+import { ObservableService } from './observable.service';
+import { TodoService } from './todo.service';
 
 @Component({
     selector: 'my-app',
@@ -12,14 +16,14 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
     <h1>{{title}}</h1>
     <nav>
         <a [routerLink]="['Dashboard']">Simple Promises</a> 
-        <a [routerLink]="['Heroes']">Observables 2</a>
+        <a [routerLink]="['Todo']">TODO's</a>
     <nav>
     <router-outlet></router-outlet>
     `,
     directives: [ROUTER_DIRECTIVES],
     providers: [
         ROUTER_PROVIDERS,
-        HeroService
+        HeroService, SlowService, ObservableService, TodoService
     ]
 })
 
@@ -31,14 +35,9 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
     useAsDefault: true
 },
 {
-    path: '/heroes',
-    name: 'Heroes',
-    component: HeroesComponent
-},
-{
-  path: '/heroes/:id',
-  name: 'HeroDetail',
-  component: HeroDetailComponent
+    path: '/todos',
+    name: 'Todo',
+    component: TodoComponent
 }
 ])
 

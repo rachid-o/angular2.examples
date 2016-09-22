@@ -9,11 +9,9 @@ import { bootstrap }      from '@angular/platform-browser-dynamic';
 import { HTTP_PROVIDERS } from '@angular/http';
 
 import { AppComponent }   from './app.component';
-import { SlowService }   from './slow.service';
 
 bootstrap(AppComponent, [
     HTTP_PROVIDERS,
     { provide: XHRBackend, useClass: InMemoryBackendService }, // in-mem server
-    { provide: SEED_DATA, useClass: InMemoryDataService },      // in-mem server data
-    SlowService
+    { provide: SEED_DATA, useClass: InMemoryDataService }      // in-mem server data
 ]);
