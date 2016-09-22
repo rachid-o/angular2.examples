@@ -11,8 +11,8 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
     template: `
     <h1>{{title}}</h1>
     <nav>
-        <a [routerLink]="['Dashboard']">Dashboard</a> 
-        <a [routerLink]="['Heroes']">Heroes</a>
+        <a [routerLink]="['Dashboard']">Simple Promises</a> 
+        <a [routerLink]="['Heroes']">Observables 2</a>
     <nav>
     <router-outlet></router-outlet>
     `,
@@ -29,7 +29,7 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
     name: 'Dashboard',
     component: DashboardComponent,
     useAsDefault: true
-},    
+},
 {
     path: '/heroes',
     name: 'Heroes',
@@ -43,5 +43,5 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
 ])
 
 export class AppComponent {
-    title = 'My first Angular2 App';
+    title = 'Angular2 Playground';
 }

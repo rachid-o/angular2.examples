@@ -7,59 +7,61 @@ import 'rxjs/add/operator/toPromise';
 // import 'rxjs/add/operator/from';
 // import 'rxjs/observable/fromPromise';
 
+const SLEEPTIME = 700;
+
 @Injectable()
 export class SlowService {
 
-  mediumCall(): Promise<string> {
+  promiseCall(): Promise<string> {
     return this.step1().then(result => {
       console.log(result);
-      return this.step2()
+      return this.step2();
     }).then(result => {
       console.log(result);
-      return this.step3()
+      return this.step3();
     });
 
   }
 
-  step1(): Promise<string> {
-    return new Promise<string>(resolve => setTimeout(() => resolve('step 1'), 1000) );
+  private step1(): Promise<string> {
+    return new Promise<string>(resolve => setTimeout(() => resolve('step 1'), SLEEPTIME) );
   }
 
-  step2(): Promise<string> {
-    return new Promise<string>(resolve => setTimeout(() => resolve('step 2'), 1000) );
+  private step2(): Promise<string> {
+    return new Promise<string>(resolve => setTimeout(() => resolve('step 2'), SLEEPTIME) );
   }
 
-  step3(): Promise<string> {
-    return new Promise<string>(resolve => setTimeout(() => resolve('step 3'), 1000) );
+  private step3(): Promise<string> {
+    return new Promise<string>(resolve => setTimeout(() => resolve('step 3'), SLEEPTIME) );
   }
 
 
-  observableCall1(): Observable<string> {
+  private observableCall1(): Observable<string> {
     return Observable.create((observer:any) => {
       setTimeout(() => {
         observer.next('step 1');
         observer.complete();
-      }, 1000);
+      }, SLEEPTIME);
     });
   }
 
-  observableCall2(): Observable<string> {
+  private observableCall2(): Observable<string> {
     return Observable.create((observer:any) => {
         setTimeout(() => {
             observer.next('step 2');
             observer.complete();
-        }, 1000);
+        }, SLEEPTIME);
     });
   }
-    observableCall3(): Observable<string> {
+    private observableCall3(): Observable<string> {
     return Observable.create((observer:any) => {
         setTimeout(() => {
             observer.next('step 3');
             observer.complete();
-        }, 1000);
+        }, SLEEPTIME);
     });
   }
-  
+
   // http://blog.angular-university.io/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/
 
   observableCall(): Observable<any> {

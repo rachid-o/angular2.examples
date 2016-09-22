@@ -1,9 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router-deprecated';
-
-import { Hero } from './hero';
-import { HeroService } from './hero.service';
-
+import { Component } from '@angular/core';
+import { SlowService } from './slow.service';
 
 @Component({
   selector: 'my-dashboard',
@@ -11,18 +7,26 @@ import { HeroService } from './hero.service';
   templateUrl: 'app/dashboard.component.html',
 })
 
-export class DashboardComponent implements OnInit {
-    heroes: Hero[] = [];
-    constructor(
-        private router: Router,
-        private heroService: HeroService) { 
+export class DashboardComponent {
+
+    constructor(private slowService: SlowService) {
     }
-    ngOnInit() {
-    this.heroService.getHeroes()
-        .then(heroes => this.heroes = heroes.slice(1, 5));
+
+    promiseCall() {
+        console.log('clicked promiseCall');
+        this.slowService.promiseCall().then(result => {
+            console.log(result);
+            console.log('Done ===>>>  Het duurde ff, maar dat was het wachten dubbeldwars waard.');
+        })
+        .catch(error => console.error('ERROR during slowCall: ', error));
     }
-    gotoDetail(hero: Hero) {
-        let link = ['HeroDetail', { id: hero.id }];
-        this.router.navigate(link);
+
+    observableCall() {
+        console.log('clicked observableCall');
+        this.slowService.observableCall().subscribe(
+            (result: any) => console.log('  subscribe.next:', result),
+            (error: any) => console.log('  Error occured:', error),
+            () => console.log('<<<===   Done   ===>>>') );
     }
+
 }

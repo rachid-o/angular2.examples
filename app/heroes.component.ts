@@ -4,7 +4,6 @@ import { Router } from '@angular/router-deprecated';
 import { Hero } from './hero';
 import { HeroDetailComponent } from './hero-detail.component';
 import { HeroService } from './hero.service';
-import { SlowService } from './slow.service';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 
@@ -12,7 +11,7 @@ import 'rxjs/add/operator/map';
     selector: 'my-heroes',
     styleUrls: ['app/heroes.component.css'],
     templateUrl: 'app/heroes.component.html',
-    directives: [HeroDetailComponent]    
+    directives: [HeroDetailComponent]
 })
 
 
@@ -22,9 +21,8 @@ export class HeroesComponent implements OnInit {
     addingHero: boolean;
     constructor(
         private router: Router,
-        private heroService: HeroService,
-        private slowService: SlowService) { }
-        
+        private heroService: HeroService) { }
+
     onSelect(hero: Hero) { this.selectedHero = hero; }
 
     getHeroes() {
@@ -32,27 +30,6 @@ export class HeroesComponent implements OnInit {
     }
     ngOnInit() {
         this.getHeroes();
-    }
-
-    slowCall() {
-        console.log('clicked');
-        this.slowService.mediumCall().then(result => { 
-            console.log(result)
-            console.log('Done ===>>>  Het duurde ff, maar dat was het wachten dubbeldwars waard.');
-        })
-        .catch(error => console.error('ERROR during slowCall: ', error));
-    }
-
-    observableCall() {
-        console.log('clicked');
-        this.slowService.observableCall()/*.map(result => {
-            // console.debug('map() result:', result);
-            return result
-        }) */
-        .subscribe(
-            (result:any) => console.log('  subscribe.next:', result), 
-            (error:any) => console.log('  Error occured:', error), 
-            () => console.log('<<<===   Done   ===>>>') );
     }
 
     gotoDetail(hero: Hero) {
@@ -72,11 +49,12 @@ export class HeroesComponent implements OnInit {
                 if (this.selectedHero === hero) { this.selectedHero = null; }
             })
             .catch(error => console.error(error)); // TODO: Display error message
-    }    
+    }
+
     close(savedHero: Hero) {
         this.addingHero = false;
-        if (savedHero) { 
-            this.getHeroes(); 
+        if (savedHero) {
+            this.getHeroes();
         }
     }
 }
