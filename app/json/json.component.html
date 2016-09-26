@@ -1,0 +1,12 @@
+<h2>Program</h2>
+
+<ul class="sessions">
+    <li *ngFor="let s of sessions">
+        <span class="badge">
+        {{ s.timeStart | date:'HH:mm' }} - 
+        {{s.name}} 
+        &nbsp;&nbsp;
+        <i>({{s.speaker.name}})</i> 
+        </span>
+    </li>
+</ul>

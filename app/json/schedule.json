@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "Welcome",
+    "speaker": {
+      "name": "Hans"
+    },
+    "timeStart": "2016-09-25T20:18:48.453Z"
+  },
+  {
+    "id": 2,
+    "name": "Opening",
+    "speaker": {
+      "name": "Klaas"
+    },
+    "timeStart": "2016-04-19T06:00:00.000Z"
+  }
+]

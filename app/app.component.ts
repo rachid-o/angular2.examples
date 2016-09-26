@@ -6,6 +6,8 @@ import { TodoComponent } from './todo.component';
 import { SlowService } from './slow.service';
 import { ObservableService } from './observable.service';
 import { TodoService } from './todo.service';
+import { JSONComponent } from './json/json.component';
+import { SessionService } from './json/session.service';
 
 @Component({
     selector: 'my-app',
@@ -15,13 +17,15 @@ import { TodoService } from './todo.service';
     <nav>
         <a [routerLink]="['Dashboard']">Simple Promises</a> 
         <a [routerLink]="['Todo']">TODO's</a>
+        <a [routerLink]="['Json']">JSON</a>
     <nav>
     <router-outlet></router-outlet>
     `,
     directives: [ROUTER_DIRECTIVES],
     providers: [
         ROUTER_PROVIDERS,
-        SlowService, ObservableService, TodoService
+        SlowService, ObservableService, TodoService, 
+        SessionService
     ]
 })
 
@@ -36,6 +40,11 @@ import { TodoService } from './todo.service';
     path: '/todos',
     name: 'Todo',
     component: TodoComponent
+},
+{
+    path: '/json',
+    name: 'Json',
+    component: JSONComponent
 }
 ])
 
